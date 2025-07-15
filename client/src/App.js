@@ -1,23 +1,17 @@
-import React from "react";
-import logo from "./logo.svg";import "./App.css";
+import React, { useState, useEffect } from 'react';
 
 function App() {
-  const [data, setData] = React.useState(null);
-
-  React.useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
+  const [message, setMessage] = useState('');
+  useEffect(() => {
+    fetch('http://localhost:5000/')
+      .then(response => response.text())
+      .then(data => setMessage(data));
   }, []);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{!data ? "Loading..." : data}</p>
-      </header>
+      <h1>{message}</h1>
     </div>
   );
 }
-
 export default App;
